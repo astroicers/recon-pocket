@@ -1,24 +1,24 @@
-# recon-pocket
+# Recon-Pocket
 
-## Run it
+## Run It
 
 ```bash
 cd recon-pocket
 export target="target.com" && docker compose up --build
 ```
 
-## On board
+## On Board
 
 ```text
 amass
 subfinder
 assetfinder
+altdns
 ```
 
 ## Coming Soon
 
 ```text
-altdns
 dirsearch
 httpx
 httprob
@@ -39,21 +39,31 @@ scan.sh
 
 ## Ref
 
-### github
+### Github
 
 - https://github.com/OWASP/Amass
 - https://github.com/eslam3kl/3klCon
 - https://github.com/projectdiscovery/subfinder
 - https://github.com/tomnomnom/assetfinder
+- https://github.com/infosec-au/altdns
 
-### dockerhub
+### Dockerhub
 
 - https://hub.docker.com/r/caffix/amass
 - https://hub.docker.com/r/projectdiscovery/subfinder
 
-### docker install
+### Docker 
+
+#### Install
 
 - ubuntu
   - https://docs.docker.com/engine/install/ubuntu/
 - debian
   - https://docs.docker.com/engine/install/debian/
+
+#### Multi-Stage Build
+
+- python
+  - https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/
+- golang
+  - https://amikai.github.io/2021/03/01/docker-multi-stage-build/
