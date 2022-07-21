@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  python3:
+    build: ./python3
+    container_name: "python3"
+    command: ["target.py","${target}"]
+  amass:
+    image: caffix/amass:latest
+    container_name: "amass"
+    # privileged: true
+    volumes:
+      - ./treasure/amass:/amass:r
+    command: ["enum","-d","${target}","-o","/amass/amass.txt"]
