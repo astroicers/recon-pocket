@@ -11,13 +11,13 @@ export target="target.com" && docker compose up --build
 
 ```text
 amass
+subfinder
+assetfinder
 ```
 
 ## Coming Soon
 
 ```text
-subfinder
-assetfinder
 altdns
 dirsearch
 httpx
@@ -41,16 +41,19 @@ scan.sh
 
 ### github
 
-- <https://github.com/OWASP/Amass>
-- <https://github.com/eslam3kl/3klCon>
+- https://github.com/OWASP/Amass
+- https://github.com/eslam3kl/3klCon
+- https://github.com/projectdiscovery/subfinder
+- https://github.com/tomnomnom/assetfinder
 
 ### dockerhub
 
-- <https://hub.docker.com/r/caffix/amass>
+- https://hub.docker.com/r/caffix/amass
+- https://hub.docker.com/r/projectdiscovery/subfinder
 
 ### docker install
 
 - ubuntu
-  - <https://docs.docker.com/engine/install/ubuntu/>
+  - https://docs.docker.com/engine/install/ubuntu/
 - debian
-  - <https://docs.docker.com/engine/install/debian/>
+  - https://docs.docker.com/engine/install/debian/

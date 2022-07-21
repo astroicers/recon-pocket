@@ -4,10 +4,22 @@ services:
     build: ./python3
     container_name: "python3"
     command: ["target.py","${target}"]
+  assetfinder:
+    build: ./assetfinder
+    container_name: "assetfinder"
+    volumes:
+      - ./treasure/assetfinder:/assetfinder
+    command: ["assetfinder.sh","${target}"]
+  subfinder:
+    image: projectdiscovery/subfinder:latest
+    container_name: "subfinder"
+    volumes:
+      - ./treasure/subfinder:/subfinder
+    command: ["-d","${target}","-o","/subfinder/subfinder.txt"]
   amass:
     image: caffix/amass:latest
     container_name: "amass"
-    # privileged: true
     volumes:
-      - ./treasure/amass:/amass:r
+      - ./treasure/amass:/amass
     command: ["enum","-d","${target}","-o","/amass/amass.txt"]
+  
