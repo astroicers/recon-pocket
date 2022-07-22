@@ -50,7 +50,6 @@ scan.sh
 ### Dockerhub
 
 - https://hub.docker.com/r/caffix/amass
-- https://hub.docker.com/r/projectdiscovery/subfinder
 
 ### Docker 
 
