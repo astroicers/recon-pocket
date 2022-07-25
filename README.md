@@ -3,11 +3,14 @@
 ## Run It
 
 ```bash
+sudo su
 cd recon-pocket
 export target="target.com" && docker compose up --build
 ```
 
 ## On Board
+
+### Tools
 
 ```text
 amass
@@ -18,6 +21,8 @@ sublist3r
 ```
 
 ## Coming Soon
+
+### Tools
 
 ```text
 dirsearch

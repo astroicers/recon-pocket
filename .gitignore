@@ -1,6 +1,6 @@
-treasure/amass/*
-treasure/subfinder/*
-treasure/assetfinder/*
-treasure/altdns/*
-treasure/sublist3r/*
+treasure/amass/*.txt
+treasure/subfinder/*.txt
+treasure/assetfinder/*.txt
+treasure/altdns/*.txt
+treasure/sublist3r/*.txt
 ref/
