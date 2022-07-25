@@ -14,6 +14,7 @@ amass
 subfinder
 assetfinder
 altdns
+sublist3r
 ```
 
 ## Coming Soon
@@ -46,10 +47,12 @@ scan.sh
 - https://github.com/projectdiscovery/subfinder
 - https://github.com/tomnomnom/assetfinder
 - https://github.com/infosec-au/altdns
+- https://github.com/aboul3la/Sublist3r
 
 ### Dockerhub
 
 - https://hub.docker.com/r/caffix/amass
+- https://hub.docker.com/r/projectdiscovery/subfinder
 
 ### Docker 
 
@@ -62,6 +65,8 @@ scan.sh
 
 #### Multi-Stage Build
 
+- docker docs
+  - https://docs.docker.com/develop/develop-images/multistage-build/
 - python
   - https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/
 - golang
