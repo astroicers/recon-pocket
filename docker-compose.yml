@@ -1,12 +1,25 @@
 version: "3.9"
 services:
-  python3:
-    build: ./python3
-    container_name: "python3"
-    command: [ "target.py", "${target}" ]
+  #################################################
+  # web server 
+  #################################################
+  viewer:
+    build: ./viewer
+    container_name: "viewer"
+    volumes:
+      - ./treasure:/treasure
+    ports:
+      - "7788:7788"
+    command: [ "viewer.sh", "Recon-Pocket" ]
   #################################################
   # find subdomain
   #################################################
+  sublist3r:
+    build: ./sublist3r
+    container_name: "sublist3r"
+    volumes:
+      - ./treasure/sublist3r:/sublist3r
+    command: [ "sublist3r.sh", "${target}" ]
   altdns:
     build: ./altdns
     container_name: "altdns"
