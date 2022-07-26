@@ -4,4 +4,5 @@ treasure/*
 !treasure/assetfinder/note
 !treasure/altdns/note
 !treasure/sublist3r/note
+!treasure/crt_sh/note
 ref/

@@ -14,6 +14,12 @@ services:
   #################################################
   # find subdomain
   #################################################
+  crt_sh:
+    build: ./crt_sh
+    container_name: "crt_sh"
+    volumes:
+      - ./treasure/crt_sh:/crt_sh
+    command: [ "crt_sh.sh", "${target}" ]
   sublist3r:
     build: ./sublist3r
     container_name: "sublist3r"
