@@ -1,3 +1,4 @@
+from os import chdir
 from flask import Flask
 from os.path import exists
 import sys
@@ -5,7 +6,9 @@ import sys
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
+def subdomain_page():
+    subdomain_funcs = ["amass","sublist3r","subfinder","assetfinder","altdns"]
+    
     def chk(filename):
         n = "/treasure/%s/done.txt" %(filename)
         if exists(n):
@@ -13,24 +16,21 @@ def hello_world():
         else:
             return "%s is running<br>"%(filename)
 
-    def body():
+    def subdomain_chk():
         body = ""
-        body += chk("amass")
-        body += chk("sublist3r")
-        body += chk("subfinder")
-        body += chk("assetfinder")
-        body += chk("altdns")
+        for subdomain_func in subdomain_funcs:
+            body += chk(subdomain_func)
         return body
 
     target = sys.argv[1]
-    body = body()
+    subdomain_chk = subdomain_chk()
     index = f'''
         <html>
             <head>
                 <meta http-equiv="refresh" content="5">
                 <title>{target}</title>
             </head>
-            <body>{body}</body>
+            <body>{subdomain_chk}</body>
         </html>
         '''
     return index
