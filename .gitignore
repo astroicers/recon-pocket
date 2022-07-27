@@ -5,4 +5,5 @@ treasure/*
 !treasure/altdns/note
 !treasure/sublist3r/note
 !treasure/crt_sh/note
+!treasure/dnsrecon/note
 ref/

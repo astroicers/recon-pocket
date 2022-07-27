@@ -5,6 +5,10 @@ import sys
 
 app = Flask(__name__)
 
+@app.route('/healthcheck')
+def healthcheck():
+    return 'OK'
+
 @app.route('/')
 def subdomain_page():
     subdomain_funcs = ["amass","sublist3r","subfinder","assetfinder","altdns"]

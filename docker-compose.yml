@@ -12,6 +12,15 @@ services:
       - "7788:7788"
     command: [ "viewer.sh", "Recon-Pocket" ]
   #################################################
+  # check subdomain living
+  #################################################
+  dnsrecon:
+    build: ./dnsrecon
+    container_name: "dnsrecon"
+    volumes:
+      - ./treasure/dnsrecon:/dnsrecon
+    command: [ "dnsrecon.sh"] # read ./treasure/subdomain_live.txt
+  #################################################
   # find subdomain
   #################################################
   crt_sh:

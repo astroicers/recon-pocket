@@ -18,6 +18,7 @@ subfinder
 assetfinder
 altdns
 sublist3r
+dnsrecon
 ```
 
 ## Coming Soon
