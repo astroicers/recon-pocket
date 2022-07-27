@@ -55,6 +55,7 @@ scan.sh
 - https://github.com/infosec-au/altdns
 - https://github.com/aboul3la/Sublist3r
 - https://github.com/crtsh
+- https://github.com/darkoperator/dnsrecon
 
 ### Dockerhub
 
