@@ -1,12 +1,5 @@
 treasure/*
-!treasure/amass/note
-!treasure/subfinder/note
-!treasure/assetfinder/note
-!treasure/altdns/note
-!treasure/sublist3r/note
-!treasure/crt_sh/note
-!treasure/dnsrecon/note
-!treasure/whois/note
+!.gitkeep
 ref/
 subdomain.txt
 subdomain_live.txt
