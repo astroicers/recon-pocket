@@ -1003,8 +1003,7 @@ def interactive():
     res = main(domain, threads, savefile, ports, silent=False, verbose=verbose, enable_bruteforce=enable_bruteforce, engines=engines)
 
 if __name__ == "__main__":
-    times = 3
-    for t in times:
+    for t in range(3):
         try:
             interactive()
             break      

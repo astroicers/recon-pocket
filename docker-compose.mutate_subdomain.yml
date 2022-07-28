@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  altdns:
+    build: ./altdns
+    container_name: "altdns"
+    volumes:
+      - ./treasure/altdns:/altdns
+    command: ["altdns.sh", "${target}" ]

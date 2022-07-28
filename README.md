@@ -1,11 +1,35 @@
 # Recon-Pocket
 
+## Flow Chart
+
+```mermaid
+  
+graph LR
+  A(Domain) -->|whois| B1(Whois Info)
+  A(Domain) -->|amass| B2(Subdomain)
+  A(Domain) -->|subfinder| B2(Subdomain)
+  A(Domain) -->|assetfinder| B2(Subdomain)
+  A(Domain) -->|sublist3r| B2(Subdomain)
+  B2(Subdomain) -->|altdns| B2(Subdomain)
+  B2(Subdomain) -->|ping| C1(Live Subdomain) & C2(Dead Subdomain)
+  C1(Live Subdomain) -->|dnsrecon| D1(Subdomain Info)
+  C1(Live Subdomain) -->|dig| D1(Subdomain Info)
+```
+
 ## Run It
+
+> This project is still under construction.
+
+> All commands are still being tested.
 
 ```bash
 sudo su
-cd recon-pocket
-export target="target.com" && docker compose up --build
+cd ~/recon-pocket
+export target="target.com"
+docker compose -f ./docker-compose.viewer.yml up
+docker compose -f ./docker-compose.find_subdomain.yml up
+docker compose -f ./docker-compose.mutate.yml up
+docker compose -f ./docker-compose.dns_info.yml up
 ```
 
 ## On Board
@@ -32,7 +56,7 @@ httprob
 waybackurls
 gau
 git-hound
-gitdorks.sh (build-in tool)
+gitdorks.sh
 naabu
 gf
 gf-templetes
@@ -42,6 +66,24 @@ s3scanner
 subjack
 webpwn3r
 scan.sh
+enum4linux
+feroxbuster
+gobuster
+impacket-scripts
+nbtscan
+nikto
+nmap
+onesixtyone
+oscanner
+redis-tools
+smbclient
+smbmap
+snmpwalk
+sslscan
+svwar
+tnscmd10g
+whatweb
+wkhtmltopdf
 ```
 
 ## Ref
@@ -56,6 +98,7 @@ scan.sh
 - https://github.com/aboul3la/Sublist3r
 - https://github.com/crtsh
 - https://github.com/darkoperator/dnsrecon
+- https://github.com/Tib3rius/AutoRecon
 
 ### Dockerhub
 

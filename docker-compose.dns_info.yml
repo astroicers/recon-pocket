@@ -21,6 +21,15 @@ services:
       - ./treasure/dnsrecon:/dnsrecon
     command: [ "dnsrecon.sh"] # read ./treasure/subdomain_live.txt
   #################################################
+  # mutate subdomain
+  #################################################
+  altdns:
+    build: ./altdns
+    container_name: "altdns"
+    volumes:
+      - ./treasure/altdns:/altdns
+    command: ["altdns.sh", "${target}" ]
+  #################################################
   # find subdomain
   #################################################
   crt_sh:
@@ -35,12 +44,6 @@ services:
     volumes:
       - ./treasure/sublist3r:/sublist3r
     command: [ "sublist3r.sh", "${target}" ]
-  altdns:
-    build: ./altdns
-    container_name: "altdns"
-    volumes:
-      - ./treasure/altdns:/altdns
-    command: ["altdns.sh", "${target}" ]
   assetfinder:
     build: ./assetfinder
     container_name: "assetfinder"
