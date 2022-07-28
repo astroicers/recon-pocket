@@ -1,5 +1,14 @@
-treasure/*
-!.gitkeep
+treasure/amass/*
+treasure/subfinder/*
+treasure/assetfinder/*
+treasure/altdns/*
+treasure/sublist3r/*
+treasure/crt_sh/*
+treasure/dnsrecon/*
+treasure/whois/*
+treasure/dig/*
 ref/
 subdomain.txt
 subdomain_live.txt
+
+!treasure/**/note
