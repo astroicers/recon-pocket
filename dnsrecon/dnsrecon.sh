@@ -7,3 +7,4 @@ do
     ping $subdomain_live -c 1
     python /app/dnsrecon.py -d $subdomain_live > /dnsrecon/dnsrecon_$subdomain_live.txt
 done
+echo "done" > /dnsrecon/done.txt

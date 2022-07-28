@@ -6,4 +6,7 @@ treasure/*
 !treasure/sublist3r/note
 !treasure/crt_sh/note
 !treasure/dnsrecon/note
+!treasure/whois/note
 ref/
+subdomain.txt
+subdomain_live.txt

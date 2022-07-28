@@ -1,64 +1,14 @@
 version: "3.9"
 services:
-  #################################################
-  # web server 
-  #################################################
-  viewer:
-    build: ./viewer
-    container_name: "viewer"
-    volumes:
-      - ./treasure:/treasure
-    ports:
-      - "7788:7788"
-    command: [ "viewer.sh", "Recon-Pocket" ]
-  #################################################
-  # check subdomain living
-  #################################################
   dnsrecon:
     build: ./dnsrecon
     container_name: "dnsrecon"
     volumes:
       - ./treasure/dnsrecon:/dnsrecon
-    command: [ "dnsrecon.sh"] # read ./treasure/subdomain_live.txt
-  #################################################
-  # mutate subdomain
-  #################################################
-  altdns:
-    build: ./altdns
-    container_name: "altdns"
+    command: [ "dnsrecon.sh"]
+  dig:
+    build: ./dig
+    container_name: "dig"
     volumes:
-      - ./treasure/altdns:/altdns
-    command: ["altdns.sh", "${target}" ]
-  #################################################
-  # find subdomain
-  #################################################
-  crt_sh:
-    build: ./crt_sh
-    container_name: "crt_sh"
-    volumes:
-      - ./treasure/crt_sh:/crt_sh
-    command: [ "crt_sh.sh", "${target}" ]
-  sublist3r:
-    build: ./sublist3r
-    container_name: "sublist3r"
-    volumes:
-      - ./treasure/sublist3r:/sublist3r
-    command: [ "sublist3r.sh", "${target}" ]
-  assetfinder:
-    build: ./assetfinder
-    container_name: "assetfinder"
-    volumes:
-      - ./treasure/assetfinder:/assetfinder
-    command: [ "assetfinder.sh", "${target}" ]
-  subfinder:
-    build: ./subfinder
-    container_name: "subfinder"
-    volumes:
-      - ./treasure/subfinder:/subfinder
-    command: ["subfinder.sh", "${target}" ]
-  amass:
-    build: ./amass
-    container_name: "amass"
-    volumes:
-      - ./treasure/amass:/amass
-    command: ["amass.sh", "${target}" ]
+      - ./treasure/dig:/dig
+    command: [ "dig.sh"]

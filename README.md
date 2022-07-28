@@ -22,13 +22,34 @@ graph LR
 
 > All commands are still being tested.
 
+### Terminal First
+
 ```bash
 sudo su
 cd ~/recon-pocket
 export target="target.com"
+
 docker compose -f ./docker-compose.viewer.yml up
+```
+
+### Terminal Second
+
+```bash
+sudo su
+cd ~/recon-pocket
+export target="target.com"
+
+docker compose -f ./docker-compose.whois.yml up
+
 docker compose -f ./docker-compose.find_subdomain.yml up
+chmod +x ./subdomain.sh && ./subdomain.sh
+cp ./treasure/subdomain.txt ./altdns/
+
 docker compose -f ./docker-compose.mutate.yml up
+chmod +x ./subdomain_live.sh && ./subdomain_live.sh
+cp ./treasure/subdomain_live.txt ./dnsrecon/
+cp ./treasure/subdomain_live.txt ./dig/
+
 docker compose -f ./docker-compose.dns_info.yml up
 ```
 
