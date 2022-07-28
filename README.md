@@ -3,8 +3,23 @@
 ## Flow Chart
 
 ```mermaid
-  
 graph LR
+  style A  stroke:red,stroke-width:4px
+  style B1 stroke:red,stroke-width:4px
+  style B2 stroke:red,stroke-width:4px
+  style C1 stroke:red,stroke-width:4px
+  style C2 stroke:red,stroke-width:4px
+  style C3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D1 stroke:red,stroke-width:4px
+  style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style E3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style E4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style E5 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style F1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style F2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   A(Domain) -->|whois| B1(Whois Info)
   A(Domain) -->|amass| B2(Subdomain)
   A(Domain) -->|subfinder| B2(Subdomain)
@@ -12,8 +27,30 @@ graph LR
   A(Domain) -->|sublist3r| B2(Subdomain)
   B2(Subdomain) -->|altdns| B2(Subdomain)
   B2(Subdomain) -->|ping| C1(Live Subdomain) & C2(Dead Subdomain)
+  B2(Subdomain) -->|gitleaks| C3(Secret on Github)
+  B2(Subdomain) -->|git-hound| C3(Secret on Github)
+  B2(Subdomain) -->|gau| C4(History on Internet)
+  B2(Subdomain) -->|waybackurls| C4(History on Internet)
   C1(Live Subdomain) -->|dnsrecon| D1(Subdomain Info)
   C1(Live Subdomain) -->|dig| D1(Subdomain Info)
+  C1(Live Subdomain) -->|nmap| D2(Service Info)
+  D2(Service Info) --> E1(HTTP)
+  D2(Service Info) --> E2(HTTPS)
+  D2(Service Info) --> E3(SMB)
+  D2(Service Info) --> E4(SNMP)
+  D2(Service Info) --> E5(RDP)
+  E1(HTTP) -->|dirsearch| F1(Subdirectory)
+  E2(HTTPS) -->|dirsearch| F1(Subdirectory)
+  E1(HTTP) -->|nikto| F2(Vuln Info)
+  E2(HTTPS) -->|nikto| F2(Vuln Info)
+```
+
+```mermaid
+graph TD
+  style Test1 stroke:red,stroke-width:4px
+  style Test2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  Test1(Done)
+  Test2(Building)
 ```
 
 ## Run It
@@ -69,7 +106,7 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [ ] waybackurls
 - [ ] gau
 - [ ] git-hound
-- [ ] gitdorks.sh
+- [ ] gitleaks
 - [ ] naabu
 - [ ] gf
 - [ ] gf-templetes
@@ -78,7 +115,6 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [ ] s3scanner
 - [ ] subjack
 - [ ] webpwn3r
-- [ ] scan.sh
 - [ ] enum4linux
 - [ ] feroxbuster
 - [ ] gobuster
@@ -96,7 +132,6 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [ ] svwar
 - [ ] tnscmd10g
 - [ ] whatweb
-- [ ] wkhtmltopdf
 
 ## Ref
 
