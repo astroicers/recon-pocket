@@ -36,55 +36,46 @@ docker compose -f ./docker-compose.dns_info.yml up
 
 ### Tools
 
-```text
-amass
-subfinder
-assetfinder
-altdns
-sublist3r
-dnsrecon
-```
-
-## Coming Soon
-
-### Tools
-
-```text
-dirsearch
-httpx
-httprob
-waybackurls
-gau
-git-hound
-gitdorks.sh
-naabu
-gf
-gf-templetes
-nuclei
-nuclei-templets
-s3scanner
-subjack
-webpwn3r
-scan.sh
-enum4linux
-feroxbuster
-gobuster
-impacket-scripts
-nbtscan
-nikto
-nmap
-onesixtyone
-oscanner
-redis-tools
-smbclient
-smbmap
-snmpwalk
-sslscan
-svwar
-tnscmd10g
-whatweb
-wkhtmltopdf
-```
+- [X] amass
+- [X] subfinder
+- [X] assetfinder
+- [X] altdns
+- [X] sublist3r
+- [X] dnsrecon
+- [ ] dirsearch
+- [ ] httpx
+- [ ] httprob
+- [ ] waybackurls
+- [ ] gau
+- [ ] git-hound
+- [ ] gitdorks.sh
+- [ ] naabu
+- [ ] gf
+- [ ] gf-templetes
+- [ ] nuclei
+- [ ] nuclei-templets
+- [ ] s3scanner
+- [ ] subjack
+- [ ] webpwn3r
+- [ ] scan.sh
+- [ ] enum4linux
+- [ ] feroxbuster
+- [ ] gobuster
+- [ ] impacket-scripts
+- [ ] nbtscan
+- [ ] nikto
+- [ ] nmap
+- [ ] onesixtyone
+- [ ] oscanner
+- [ ] redis-tools
+- [ ] smbclient
+- [ ] smbmap
+- [ ] snmpwalk
+- [ ] sslscan
+- [ ] svwar
+- [ ] tnscmd10g
+- [ ] whatweb
+- [ ] wkhtmltopdf
 
 ## Ref
 
