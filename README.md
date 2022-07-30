@@ -100,6 +100,8 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [X] altdns
 - [X] sublist3r
 - [X] dnsrecon
+- [ ] wapiti
+- [ ] arjun
 - [ ] dirsearch
 - [ ] httpx
 - [ ] httprob
