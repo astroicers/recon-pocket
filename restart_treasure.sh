@@ -14,6 +14,7 @@ rm -f treasure/crt_sh/done.txt
 rm -f treasure/crt_sh/crt_sh.txt
 rm -f treasure/whois/done.txt
 rm -f treasure/whois/whois.txt
+rm -f treasure/git-hound/git-hound.txt
 
 rm -f treasure/dig/done.txt
 rm -f treasure/dig/dig_*.txt

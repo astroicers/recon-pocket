@@ -9,7 +9,7 @@ graph LR
   style B2 stroke:red,stroke-width:4px
   style C1 stroke:red,stroke-width:4px
   style C2 stroke:red,stroke-width:4px
-  style C3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style C3 stroke:red,stroke-width:4px
   style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style D1 stroke:red,stroke-width:4px
   style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
@@ -27,10 +27,9 @@ graph LR
   A(Domain) -->|sublist3r| B2(Subdomain)
   B2(Subdomain) -->|altdns| B2(Subdomain)
   B2(Subdomain) -->|ping| C1(Live Subdomain) & C2(Dead Subdomain)
-  B2(Subdomain) -->|gitleaks| C3(Secret on Github)
-  B2(Subdomain) -->|git-hound| C3(Secret on Github)
-  B2(Subdomain) -->|gau| C4(History on Internet)
-  B2(Subdomain) -->|waybackurls| C4(History on Internet)
+  C1(Live Subdomain) -->|git-hound| C3(Secret on Github)
+  C1(Live Subdomain) -->|gau| C4(History on Internet)
+  C1(Live Subdomain) -->|waybackurls| C4(History on Internet)
   C1(Live Subdomain) -->|dnsrecon| D1(Subdomain Info)
   C1(Live Subdomain) -->|dig| D1(Subdomain Info)
   C1(Live Subdomain) -->|nmap| D2(Service Info)
@@ -39,10 +38,8 @@ graph LR
   D2(Service Info) --> E3(SMB)
   D2(Service Info) --> E4(SNMP)
   D2(Service Info) --> E5(RDP)
-  E1(HTTP) -->|dirsearch| F1(Subdirectory)
-  E2(HTTPS) -->|dirsearch| F1(Subdirectory)
-  E1(HTTP) -->|nikto| F2(Vuln Info)
-  E2(HTTPS) -->|nikto| F2(Vuln Info)
+  E1("HTTP(S)") -->|dirsearch| F1(Subdirectory)
+  E1("HTTP(S)") -->|nikto| F2(Vuln Info)
 ```
 
 ```mermaid

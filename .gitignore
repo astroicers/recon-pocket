@@ -7,8 +7,11 @@ treasure/crt_sh/*
 treasure/dnsrecon/*
 treasure/whois/*
 treasure/dig/*
+treasure/git-hound/*
 ref/
 subdomain.txt
 subdomain_live.txt
+paused.conf
+config.yaml
 
 !treasure/**/note
