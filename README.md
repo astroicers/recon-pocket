@@ -15,7 +15,7 @@ graph LR
   style C1 stroke:red,stroke-width:4px
   style C2 stroke:red,stroke-width:4px
   style C3 stroke:red,stroke-width:4px
-  style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style C4 stroke:red,stroke-width:4px
   style D1 stroke:red,stroke-width:4px
   style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style D3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
@@ -109,6 +109,7 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [X] waybackurls
 - [ ] wapiti
 - [ ] arjun
+- [ ] goohak
 - [ ] dirsearch
 - [ ] httpx
 - [ ] httprob

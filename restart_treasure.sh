@@ -20,6 +20,8 @@ rm -f treasure/dig/done.txt
 rm -f treasure/dig/dig_*.txt
 rm -f treasure/dnsrecon/done.txt
 rm -f treasure/dnsrecon/dnsrecon_*.txt
+rm -f treasure/gau/gau_*.txt
+rm -f treasure/waybackurls/waybackurls_*.txt
 
 rm -f altdns/subdomain.txt
 rm -f dnsrecon/subdomain_live.txt

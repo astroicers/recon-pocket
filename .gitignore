@@ -12,6 +12,8 @@ treasure/gau/*
 treasure/waybackurls/*
 
 ref/
+tmp/
+
 subdomain.txt
 subdomain_live.txt
 paused.conf
