@@ -1,5 +1,9 @@
 # Recon-Pocket
 
+## Description
+
+> Coming and Soon.
+
 ## Flow Chart
 
 ```mermaid
@@ -13,6 +17,7 @@ graph LR
   style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style D1 stroke:red,stroke-width:4px
   style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
@@ -33,6 +38,7 @@ graph LR
   C1(Live Subdomain) -->|dnsrecon| D1(Subdomain Info)
   C1(Live Subdomain) -->|dig| D1(Subdomain Info)
   C1(Live Subdomain) -->|nmap| D2(Service Info)
+  C1(Live Subdomain) -->|google hacking| D3(Leak on Google)
   D2(Service Info) --> E1(HTTP)
   D2(Service Info) --> E2(HTTPS)
   D2(Service Info) --> E3(SMB)
@@ -89,7 +95,7 @@ docker compose -f ./docker-compose.dns_info.yml up
 
 ## On Board
 
-### Tools
+### Tools Useds
 
 - [X] amass
 - [X] subfinder
@@ -97,15 +103,14 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [X] altdns
 - [X] sublist3r
 - [X] dnsrecon
+- [X] git-hound
+- [ ] gau
+- [ ] waybackurls
 - [ ] wapiti
 - [ ] arjun
 - [ ] dirsearch
 - [ ] httpx
 - [ ] httprob
-- [ ] waybackurls
-- [ ] gau
-- [ ] git-hound
-- [ ] gitleaks
 - [ ] naabu
 - [ ] gf
 - [ ] gf-templetes

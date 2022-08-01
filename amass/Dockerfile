@@ -3,7 +3,7 @@ FROM golang:1.18-alpine3.15 as builder
 RUN apk --no-cache add git
 RUN go install -v github.com/OWASP/Amass/v3/...@master
 
-FROM alpine:latest
+FROM alpine:3.15
 # Copy from builder
 COPY --from=builder /go/bin/amass /bin/amass
 RUN apk --no-cache add ca-certificates

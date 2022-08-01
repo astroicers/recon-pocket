@@ -8,6 +8,8 @@ treasure/dnsrecon/*
 treasure/whois/*
 treasure/dig/*
 treasure/git-hound/*
+treasure/gau/*
+
 ref/
 subdomain.txt
 subdomain_live.txt

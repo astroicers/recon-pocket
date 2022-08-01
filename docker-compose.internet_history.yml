@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  gau:
+    build: ./gau
+    container_name: "gau"
+    volumes:
+      - ./treasure/gau:/gau
+    command: [ "gau.sh", "${target}" ]
