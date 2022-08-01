@@ -9,6 +9,7 @@ treasure/whois/*
 treasure/dig/*
 treasure/git-hound/*
 treasure/gau/*
+treasure/waybackurls/*
 
 ref/
 subdomain.txt

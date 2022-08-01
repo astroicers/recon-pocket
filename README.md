@@ -8,6 +8,7 @@
 
 ```mermaid
 graph LR
+
   style A  stroke:red,stroke-width:4px
   style B1 stroke:red,stroke-width:4px
   style B2 stroke:red,stroke-width:4px
@@ -104,8 +105,8 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [X] sublist3r
 - [X] dnsrecon
 - [X] git-hound
-- [ ] gau
-- [ ] waybackurls
+- [X] gau
+- [X] waybackurls
 - [ ] wapiti
 - [ ] arjun
 - [ ] dirsearch
