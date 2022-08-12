@@ -10,6 +10,7 @@ treasure/dig/*
 treasure/git-hound/*
 treasure/gau/*
 treasure/waybackurls/*
+treasure/nmap/*
 
 ref/
 tmp/

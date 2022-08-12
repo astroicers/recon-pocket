@@ -17,7 +17,7 @@ graph LR
   style C3 stroke:red,stroke-width:4px
   style C4 stroke:red,stroke-width:4px
   style D1 stroke:red,stroke-width:4px
-  style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D2 stroke:red,stroke-width:4px
   style D3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
@@ -83,15 +83,26 @@ export target="target.com"
 docker compose -f ./docker-compose.whois.yml up
 
 docker compose -f ./docker-compose.find_subdomain.yml up
+
 chmod +x ./subdomain.sh && ./subdomain.sh
 cp ./treasure/subdomain.txt ./altdns/
-
 docker compose -f ./docker-compose.mutate.yml up
+
+./subdomain.sh
 chmod +x ./subdomain_live.sh && ./subdomain_live.sh
 cp ./treasure/subdomain_live.txt ./dnsrecon/
 cp ./treasure/subdomain_live.txt ./dig/
-
 docker compose -f ./docker-compose.dns_info.yml up
+
+cp ./treasure/subdomain_live.txt ./gau/
+cp ./treasure/subdomain_live.txt ./waybackurls/
+docker compose -f ./docker-compose.internet_history.yml up
+
+cp ./treasure/subdomain_live.txt ./git-hound/
+docker compose -f ./docker-compose.github_secret.yml up
+
+cp ./treasure/subdomain_live.txt ./nmap/
+docker compose -f ./docker-compose.service_info.yml up
 ```
 
 ## On Board
@@ -107,6 +118,7 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [X] git-hound
 - [X] gau
 - [X] waybackurls
+- [X] nmap
 - [ ] wapiti
 - [ ] arjun
 - [ ] goohak
@@ -127,7 +139,6 @@ docker compose -f ./docker-compose.dns_info.yml up
 - [ ] impacket-scripts
 - [ ] nbtscan
 - [ ] nikto
-- [ ] nmap
 - [ ] onesixtyone
 - [ ] oscanner
 - [ ] redis-tools
@@ -175,3 +186,20 @@ docker compose -f ./docker-compose.dns_info.yml up
   - https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/
 - golang
   - https://amikai.github.io/2021/03/01/docker-multi-stage-build/
+
+#### Check container is running
+
+- return `true` is running
+
+```bash
+docker container inspect -f '{{.State.Running}}' $container_name
+```
+
+### Nmap
+
+#### State
+
+- Open: Firewall and host ports are opened.
+- Closed: Firewall ports are opened but host ports are closed.
+- Filtered: Firewall ports are filtered.
+- Not shown: * closed ports: There isn't have any services.
