@@ -22,33 +22,47 @@ graph LR
   style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style E4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style E5 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  A(Domain) -->|whois| B1(Whois Info)
-  A(Domain) -->|amass| B2(Subdomain)
-  A(Domain) -->|subfinder| B2(Subdomain)
-  A(Domain) -->|assetfinder| B2(Subdomain)
-  A(Domain) -->|sublist3r| B2(Subdomain)
-  B2(Subdomain) -->|altdns| B2(Subdomain)
-  B2(Subdomain) -->|ping| C1(Live Subdomain) & C2(Dead Subdomain)
-  C1(Live Subdomain) -->|git-hound| C3(Secret on Github)
-  C1(Live Subdomain) -->|gau| C4(History on Internet)
-  C1(Live Subdomain) -->|waybackurls| C4(History on Internet)
-  C1(Live Subdomain) -->|dnsrecon| D1(Subdomain Info)
-  C1(Live Subdomain) -->|dig| D1(Subdomain Info)
-  C1(Live Subdomain) -->|nmap| D2(Service Info)
-  C1(Live Subdomain) -->|google hacking| D3(Leak on Google)
-  D2(Service Info) --> E1(HTTP)
-  D2(Service Info) --> E2(HTTPS)
-  D2(Service Info) --> E3(SMB)
-  D2(Service Info) --> E4(SNMP)
-  D2(Service Info) --> E5(RDP)
-  E1("HTTP(S)") -->|dirsearch| F1(Subdirectory)
-  E1("HTTP(S)") -->|nikto| F2(Vuln Info)
+  style F3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style F4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style F5 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style F6 stroke:red,stroke-width:4px,stroke-dasharray: 5 5 
+  A(Domain) -->|"whois✔️"|B1(Whois Info)
+  A(Domain) -->|"amass✔️"|B2(Subdomain)
+  A(Domain) -->|"subfinder✔️"|B2(Subdomain)
+  A(Domain) -->|"assetfinder✔️"|B2(Subdomain)
+  A(Domain) -->|"sublist3r✔️"|B2(Subdomain)
+  B2(Subdomain) -->|"altdns✔️"|B2(Subdomain)
+  B2(Subdomain) -->|"ping✔️"|C1(Live Subdomain) & C2(Dead Subdomain)
+  C1(Live Subdomain) -->|"git-hound✔️"|C3(Secret on Github)
+  C1(Live Subdomain) -->|"gau✔️"|C4(History on Internet)
+  C1(Live Subdomain) -->|"waybackurls✔️"|C4(History on Internet)
+  C1(Live Subdomain) -->|"dnsrecon✔️"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"dig✔️"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"nmap✔️"|D2(Service Info)
+  C1(Live Subdomain) -->|"google hacking"|D3(Leak on Google)
+  D2(Service Info) --> E1("HTTP(S)")
+  D2(Service Info) --> E2(SMB)
+  D2(Service Info) --> E3(SNMP)
+  E1("HTTP(S)") -->|"dirsearch"|F1(Subdirectory)
+  E1("HTTP(S)") -->|"feroxbuster"|F1(Subdirectory)
+  E1("HTTP(S)") -->|"gobuster"|F1(Subdirectory)
+  E1("HTTP(S)") -->|"nikto"|F2(Vuln Info)
+  E1("HTTP(S)") -->|"nuclei"|F2(Vuln Info)
+  E1("HTTP(S)") -->|"wapiti"|F2(Vuln Info)
+  E1("HTTP(S)") -->|"webpwn3r"|F2(Vuln Info)
+  E1("HTTP(S)") -->|"whatweb"|F3(Fingerprint)
+  E1("HTTP(S)") -->|"wafw00f"|F3(Fingerprint)
+  E1("HTTP(S)") -->|"wappalyzer"|F3(Fingerprint)
+  E1("HTTP(S)") -->|"sslscan"|F4(Crypto Enable Info)
+  E2(SMB) -->|"enum4linux"|F5(Samba Info)
+  E2(SMB) -->|"smbclient"|F5(Samba Info)
+  E2(SMB) -->|"smbmap"|F5(Samba Info)
+  E3(SNMP) -->|"snmpwalk"|F6(SNMP Info)
+  E3(SNMP) -->|"onesixtyone"|F6(SNMP Info)
 ```
-
+<!-- ✔️❌ -->
 ```mermaid
 graph TD
   style Test1 stroke:red,stroke-width:4px
@@ -123,9 +137,6 @@ docker compose -f ./docker-compose.service_info.yml up
 - [ ] arjun
 - [ ] goohak
 - [ ] dirsearch
-- [ ] httpx
-- [ ] httprob
-- [ ] naabu
 - [ ] gf
 - [ ] gf-templetes
 - [ ] nuclei
@@ -140,15 +151,13 @@ docker compose -f ./docker-compose.service_info.yml up
 - [ ] nbtscan
 - [ ] nikto
 - [ ] onesixtyone
-- [ ] oscanner
 - [ ] redis-tools
 - [ ] smbclient
 - [ ] smbmap
 - [ ] snmpwalk
 - [ ] sslscan
-- [ ] svwar
-- [ ] tnscmd10g
 - [ ] whatweb
+- [ ] wappalyzer
 
 ## Ref
 
