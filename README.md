@@ -28,19 +28,19 @@ graph LR
   style F4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F5 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F6 stroke:red,stroke-width:4px,stroke-dasharray: 5 5 
-  A(Domain) -->|"whois✔️"|B1(Whois Info)
-  A(Domain) -->|"amass✔️"|B2(Subdomain)
-  A(Domain) -->|"subfinder✔️"|B2(Subdomain)
-  A(Domain) -->|"assetfinder✔️"|B2(Subdomain)
-  A(Domain) -->|"sublist3r✔️"|B2(Subdomain)
-  B2(Subdomain) -->|"altdns✔️"|B2(Subdomain)
-  B2(Subdomain) -->|"ping✔️"|C1(Live Subdomain) & C2(Dead Subdomain)
-  C1(Live Subdomain) -->|"git-hound✔️"|C3(Secret on Github)
-  C1(Live Subdomain) -->|"gau✔️"|C4(History on Internet)
-  C1(Live Subdomain) -->|"waybackurls✔️"|C4(History on Internet)
-  C1(Live Subdomain) -->|"dnsrecon✔️"|D1(Subdomain Info)
-  C1(Live Subdomain) -->|"dig✔️"|D1(Subdomain Info)
-  C1(Live Subdomain) -->|"nmap✔️"|D2(Service Info)
+  A(Domain) -->|"whois✅"|B1(Whois Info)
+  A(Domain) -->|"amass✅"|B2(Subdomain)
+  A(Domain) -->|"subfinder✅"|B2(Subdomain)
+  A(Domain) -->|"assetfinder✅"|B2(Subdomain)
+  A(Domain) -->|"sublist3r✅"|B2(Subdomain)
+  B2(Subdomain) -->|"altdns✅"|B2(Subdomain)
+  B2(Subdomain) -->|"ping✅"|C1(Live Subdomain) & C2(Dead Subdomain)
+  C1(Live Subdomain) -->|"git-hound✅"|C3(Secret on Github)
+  C1(Live Subdomain) -->|"gau✅"|C4(History on Internet)
+  C1(Live Subdomain) -->|"waybackurls✅"|C4(History on Internet)
+  C1(Live Subdomain) -->|"dnsrecon✅"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"dig✅"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"nmap✅"|D2(Service Info)
   C1(Live Subdomain) -->|"google hacking"|D3(Leak on Google)
   D2(Service Info) --> E1("HTTP(S)")
   D2(Service Info) --> E2(SMB)
@@ -62,7 +62,7 @@ graph LR
   E3(SNMP) -->|"snmpwalk"|F6(SNMP Info)
   E3(SNMP) -->|"onesixtyone"|F6(SNMP Info)
 ```
-<!-- ✔️❌ -->
+
 ```mermaid
 graph TD
   style Test1 stroke:red,stroke-width:4px
