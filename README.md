@@ -212,3 +212,7 @@ docker container inspect -f '{{.State.Running}}' $container_name
 - Closed: Firewall ports are opened but host ports are closed.
 - Filtered: Firewall ports are filtered.
 - Not shown: * closed ports: There isn't have any services.
+
+## Donate
+
+<a href="https://www.buymeacoffee.com/astroicers" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
