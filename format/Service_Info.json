@@ -1,0 +1,23 @@
+{
+    "Domain": "aaa.com",
+    "Description": "A test description",
+    "Uuid": "458AE4FC-0C10-49F2-BC69-C982E04778EF",
+    "Time": "2022-05-16 12:00:00 UTC",
+    "Subdomain": {
+        "www.aaa.com": {
+            "state": "live",
+            "ip": "1.1.1.1",
+            "service_info": {
+                "http_80": {
+                    "service": "http",
+                    "port": "80",
+                    "state": "Open",
+                    "result": ""
+                }
+            }
+        },
+        "api.aaa.com": {
+            "state": "dead"
+        }
+    }
+}

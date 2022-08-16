@@ -1,0 +1,61 @@
+{
+    "Domain": "aaa.com",
+    "Description": "A test description",
+    "Uuid": "458AE4FC-0C10-49F2-BC69-C982E04778EF",
+    "Time": "2022-05-16 12:00:00 UTC",
+    "Whois_Info": {
+        "whois":{
+            "tool_name":"whois",
+            "result":""
+        }
+    },
+    "Subdomain": {
+        "www.aaa.com": {
+            "state": "live",
+            "ip": "1.1.1.1",
+            "subdomain_info": {
+                "dnsrecon": {
+                    "tool_name": "dnsrecon",
+                    "result": ""
+                },
+                "dig":{
+                    "tool_name": "dig",
+                    "result": ""
+                }
+            },
+            "service_info": {
+                "http_80": {
+                    "service": "http",
+                    "port": "80",
+                    "state": "Open",
+                    "result": ""
+                },
+                "https_443": {
+                    "service": "https",
+                    "port": "443",
+                    "state": "Open",
+                    "result": ""
+                }
+            },
+            "github_secret": {
+                "git-hound": {
+                    "tool_name": "githound",
+                    "result": ""
+                }
+            },
+            "internet_history": {
+                "gau": {
+                    "tool_name": "gau",
+                    "result": ""
+                },
+                "waybackurls": {
+                    "tool_name": "waybackurls",
+                    "result": ""
+                }
+            }
+        },
+        "api.aaa.com": {
+            "state": "dead"
+        }
+    }
+}
