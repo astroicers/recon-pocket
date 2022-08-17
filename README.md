@@ -33,6 +33,7 @@ graph LR
   A(Domain) -->|"subfinder✅"|B2(Subdomain)
   A(Domain) -->|"assetfinder✅"|B2(Subdomain)
   A(Domain) -->|"sublist3r✅"|B2(Subdomain)
+  A(Domain) -->|"crt.sh✅"|B2(Subdomain)
   B2(Subdomain) -->|"altdns✅"|B2(Subdomain)
   B2(Subdomain) -->|"ping✅"|C1(Live Subdomain) & C2(Dead Subdomain)
   C1(Live Subdomain) -->|"git-hound✅"|C3(Secret on Github)
@@ -65,6 +66,7 @@ graph LR
 
 ```mermaid
 graph TD
+
   style Test1 stroke:red,stroke-width:4px
   style Test2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   Test1(Done)
@@ -76,11 +78,44 @@ graph TD
 ```mermaid
 graph LR
 
-  A(Web Site) -->|Json File|B(Shell Script)
-  B(Shell Script)-->|Run Container|C(Shell Script)
-  B(Shell Script)-->|Run Container|C(Shell Script)
-  B(Shell Script)-->|...|C(Shell Script)
-  C(Shell Script)-->|JSon File|D(Web Site)
+  style A stroke-width:4px
+  style B stroke-width:4px
+  style C stroke-width:4px
+  style D stroke-width:4px
+  style E stroke-width:4px
+  style F stroke-width:4px
+  A("
+  Json File
+  <br>
+  {\x22domain\x22:\x22aaa.com\x22}
+  <br>
+  ex. domain.json
+  ") -->B("
+  Shell Script
+  <br>
+  Run container by domain.json
+  <br>
+  ex. front_whois.sh
+  ")-->|Commands<br>Args|C("
+  Container
+  <br>
+  Output result
+  <br>
+  ex. whois
+  ")-->|Raw Data|D("
+  Shell Script
+  <br>
+  Convert the result to json format
+  <br>
+  ex. back_whois.sh
+  ")-->E("
+  Json File
+  <br>
+  {\x22whois\x22:{\x22results\x22:\x22...\x22}}
+  <br>
+  ex. whois.json
+  ")
+  D-->F("Raw Data<br>ex. whois.txt")
 ```
 
 ## Run It
@@ -186,6 +221,8 @@ docker compose -f ./docker-compose.service_info.yml up
 - https://github.com/crtsh
 - https://github.com/darkoperator/dnsrecon
 - https://github.com/Tib3rius/AutoRecon
+- https://github.com/itchyny/gojq
+- https://github.com/spali/go-xq
 
 ### Dockerhub
 
