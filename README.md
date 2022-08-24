@@ -1,6 +1,6 @@
 # Recon-Pocket
 
-## Description
+This is an integrated and automated tool for Recon. 
 
 > Coming and Soon.
 
@@ -118,20 +118,17 @@ graph LR
   D-->F("Raw Data<br>ex. whois.txt")
 ```
 
-## Run It
+If the treasure is trash actually: 
 
-> This project is still under construction.
+```shell
+$ ./rm-treasures.sh
+```
 
-> All commands are still being tested.
-
-### Terminal First
+### Web Tool
 
 ```bash
-sudo su
-cd ~/recon-pocket
 export target="target.com"
-
-docker compose -f ./docker-compose.viewer.yml up
+docker-compose -f ./docker-compose/docker-compose.viewer.yml up --build
 ```
 
 ### Terminal Second
@@ -166,9 +163,7 @@ cp ./treasure/subdomain_live.txt ./nmap/
 docker compose -f ./docker-compose.service_info.yml up
 ```
 
-## On Board
-
-### Tools Useds
+## Tools
 
 - [X] amass
 - [X] subfinder
@@ -206,65 +201,37 @@ docker compose -f ./docker-compose.service_info.yml up
 - [ ] whatweb
 - [ ] wappalyzer
 
-## Ref
+## References
 
 ### Github
 
 <img src="https://cdn-icons-png.flaticon.com/512/270/270798.png" width="100" height="100">
 
-- https://github.com/OWASP/Amass
-- https://github.com/eslam3kl/3klCon
-- https://github.com/projectdiscovery/subfinder
-- https://github.com/tomnomnom/assetfinder
-- https://github.com/infosec-au/altdns
-- https://github.com/aboul3la/Sublist3r
-- https://github.com/crtsh
-- https://github.com/darkoperator/dnsrecon
-- https://github.com/Tib3rius/AutoRecon
-- https://github.com/itchyny/gojq
-- https://github.com/spali/go-xq
-
-### Dockerhub
-
-<img src="https://cdn-icons-png.flaticon.com/512/5969/5969059.png" width="100" height="100">
-
-- https://hub.docker.com/r/caffix/amass
-- https://hub.docker.com/r/projectdiscovery/subfinder
+- [OWASP/Amass: In-depth Attack Surface Mapping and Asset Discovery](https://github.com/OWASP/Amass)
+- [eslam3kl/3klCon: Automation Recon tool which works with Large & Medium scopes. It performs more than 20 tasks and gets back all the results in separated files.](https://github.com/eslam3kl/3klCon)
+- [projectdiscovery/subfinder: Subfinder is a subdomain discovery tool that discovers valid subdomains for websites. Designed as a passive framework to be useful for bug bounties and safe for penetration testing.](https://github.com/projectdiscovery/subfinder)
+- [tomnomnom/assetfinder: Find domains and subdomains related to a given domain](https://github.com/tomnomnom/assetfinder)
+- [infosec-au/altdns: Generates permutations, alterations and mutations of subdomains and then resolves them](https://github.com/infosec-au/altdns)
+- [aboul3la/Sublist3r: Fast subdomains enumeration tool for penetration testers](https://github.com/aboul3la/Sublist3r)
+- [crt.sh](https://github.com/crtsh)
+- [darkoperator/dnsrecon: DNS Enumeration Script](https://github.com/darkoperator/dnsrecon)
+- [Tib3rius/AutoRecon: AutoRecon is a multi-threaded network reconnaissance tool which performs automated enumeration of services.](https://github.com/Tib3rius/AutoRecon)
+- [itchyny/gojq: Pure Go implementation of jq](https://github.com/itchyny/gojq)
+- [spali/go-xq: XML query utility to extract xml from a file, input pipe or url with XPath.](https://github.com/spali/go-xq)
 
 ### Docker
 
-#### Install
+<img src="https://cdn-icons-png.flaticon.com/512/5969/5969059.png" width="100" height="100">
 
-- ubuntu
-  - https://docs.docker.com/engine/install/ubuntu/
-- debian
-  - https://docs.docker.com/engine/install/debian/
+- [Install Docker Engine on Ubuntu | Docker Documentation](https://docs.docker.com/engine/install/ubuntu/)
+- [Install Docker Engine on Debian | Docker Documentation](https://docs.docker.com/engine/install/debian/)
+- [Use multi-stage builds | Docker Documentation](https://docs.docker.com/develop/develop-images/multistage-build/)
+- [caffix/amass - Docker Image | Docker Hub](https://hub.docker.com/r/caffix/amass)
+- [projectdiscovery/subfinder - Docker Image | Docker Hub](https://hub.docker.com/r/projectdiscovery/subfinder)
 
-#### Multi-Stage Build
+## Donate☕
 
-- docker docs
-  - https://docs.docker.com/develop/develop-images/multistage-build/
-- python
-  - https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/
-- golang
-  - https://amikai.github.io/2021/03/01/docker-multi-stage-build/
-
-#### Check container is running
-
-- return `true` is running
-
-```bash
-docker container inspect -f '{{.State.Running}}' $container_name
-```
-
-### Nmap
-
-#### State
-
-- Open: Firewall and host ports are opened.
-- Closed: Firewall ports are opened but host ports are closed.
-- Filtered: Firewall ports are filtered.
-- Not shown: * closed ports: There isn't have any services.
+<a href="https://www.buymeacoffee.com/astroicers" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 <!--
 
@@ -285,6 +252,38 @@ docker container inspect -f '{{.State.Running}}' $container_name
 - https://github.com/argoproj/argo-workflows
 
 -->
+
+<!-- ## Others
+
+- python
+  - [打造最小 Python Docker 容器 - 小惡魔 - AppleBOY](https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/)
+- golang
+  - [Dockerfile - Multi-stage build 筆記 - amikai's blog](https://amikai.github.io/2021/03/01/docker-multi-stage-build/)
+
+### Nmap
+
+#### State
+
+- Open: Firewall and host ports are opened.
+- Closed: Firewall ports are opened but host ports are closed.
+- Filtered: Firewall ports are filtered.
+- Not shown: * closed ports: There isn't have any services.
+
+### Kubernetes
+
+<img src="https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/2110px-Kubernetes-icon-color.svg.png" width="100" height="100">
+
+#### Kops
+- https://github.com/kubernetes/kops
+
+#### Minikube
+- https://github.com/kubernetes/minikube
+
+#### Argo
+
+<img src="https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png" width="100" height="100">
+
+- https://github.com/argoproj/argo-workflows
 
 ## Donate☕
 

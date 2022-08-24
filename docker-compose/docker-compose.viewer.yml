@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  viewer:
+    build: ../viewer
+    container_name: "viewer"
+    volumes:
+      - ../treasure:/treasure
+    ports:
+      - "7788:7788"
+    command: [ "viewer.sh", "Recon-Pocket" ]

@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  dnsrecon:
+    build: ../tools/dnsrecon
+    container_name: "dnsrecon"
+    volumes:
+      - ../${TREASURE}/dnsrecon:/dnsrecon
+    command: [ "dnsrecon.sh" ]
+  dig:
+    build: ../tools/dig
+    container_name: "dig"
+    volumes:
+      - ../${TREASURE}/dig:/dig
+    command: [ "dig.sh" ]

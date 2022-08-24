@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  gau:
+    build: ../tools/gau
+    container_name: "gau"
+    volumes:
+      - ../${TREASURE}/gau:/gau
+    command: [ "gau.sh" ]
+  waybackurls:
+    build: ../tools/waybackurls
+    container_name: "waybackurls"
+    volumes:
+      - ../${TREASURE}/waybackurls:/waybackurls
+    command: [ "waybackurls.sh" ]
