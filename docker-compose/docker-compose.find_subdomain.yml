@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+
+  crt_sh:
+    build: ../tools/crt_sh
+    container_name: "crt_sh"
+    profiles: [ "medium", "heavy" ]
+    volumes:
+      - ../${TREASURE}/crt_sh:/crt_sh
+    command: [ "crt_sh.sh", "${TARGET}" ]
+
+  sublist3r:
+    build: ../tools/sublist3r
+    container_name: "sublist3r"
+    profiles: [ "medium", "heavy" ]
+    volumes:
+      - ../${TREASURE}/sublist3r:/sublist3r
+    command: [ "sublist3r.sh", "${TARGET}" ]
+
+  assetfinder:
+    build: ../tools/assetfinder
+    container_name: "assetfinder"
+    profiles: [ "medium", "heavy" ]
+    volumes:
+      - ../${TREASURE}/assetfinder:/assetfinder
+    command: [ "assetfinder.sh", "${TARGET}" ]
+
+  subfinder:
+    build: ../tools/subfinder
+    container_name: "subfinder"
+    profiles: [ "medium", "heavy" ]
+    volumes:
+      - ../${TREASURE}/subfinder:/subfinder
+    command: [ "subfinder.sh", "${TARGET}" ]
+
+  amass:
+    build: ../tools/amass
+    container_name: "amass"
+    profiles: [ "heavy" ]
+    volumes:
+      - ../${TREASURE}/amass:/amass
+    command: [ "amass.sh", "${TARGET}" ]
