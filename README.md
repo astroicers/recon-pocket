@@ -266,6 +266,8 @@ docker container inspect -f '{{.State.Running}}' $container_name
 - Filtered: Firewall ports are filtered.
 - Not shown: * closed ports: There isn't have any services.
 
+<!--
+
 ### Kubernetes
 
 <img src="https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/2110px-Kubernetes-icon-color.svg.png" width="100" height="100">
@@ -281,6 +283,8 @@ docker container inspect -f '{{.State.Running}}' $container_name
 <img src="https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png" width="100" height="100">
 
 - https://github.com/argoproj/argo-workflows
+
+-->
 
 ## Donate☕
 
