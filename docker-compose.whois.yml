@@ -1,8 +1,0 @@
-version: "3.9"
-services:
-  whois:
-    build: ./whois
-    container_name: "whois"
-    volumes:
-      - ./treasure/whois:/whois
-    command: [ "whois.sh", "${target}" ]

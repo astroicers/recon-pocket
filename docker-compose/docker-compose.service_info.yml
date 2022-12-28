@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  nmap_full_tcp:
+    build: ../tools/nmap
+    container_name: "nmap_full_tcp"
+    volumes:
+      - ../${TREASURE}/nmap:/nmap
+    command: [ "nmap_full_tcp.sh" ]
+  nmap_quick_tcp:
+    build: ../tools/nmap
+    container_name: "nmap_quick_tcp"
+    volumes:
+      - ../${TREASURE}/nmap:/nmap
+    command: [ "nmap_quick_tcp.sh" ]
