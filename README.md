@@ -25,9 +25,11 @@ graph LR
   style F1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style F3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style F4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style F5 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style F6 stroke:red,stroke-width:4px,stroke-dasharray: 5 5 
+  style G1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style G2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style G3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style H1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style I1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   A(Domain) -->|"whois✅"|B1(Whois Info)
   A(Domain) -->|"amass✅"|B2(Subdomain)
   A(Domain) -->|"subfinder✅"|B2(Subdomain)
@@ -46,22 +48,26 @@ graph LR
   D2(Service Info) --> E1("HTTP(S)")
   D2(Service Info) --> E2(SMB)
   D2(Service Info) --> E3(SNMP)
-  E1("HTTP(S)") -->|"dirsearch"|F1(Subdirectory)
-  E1("HTTP(S)") -->|"feroxbuster"|F1(Subdirectory)
-  E1("HTTP(S)") -->|"gobuster"|F1(Subdirectory)
-  E1("HTTP(S)") -->|"nikto"|F2(Vuln Info)
-  E1("HTTP(S)") -->|"nuclei"|F2(Vuln Info)
-  E1("HTTP(S)") -->|"wapiti"|F2(Vuln Info)
-  E1("HTTP(S)") -->|"webpwn3r"|F2(Vuln Info)
-  E1("HTTP(S)") -->|"whatweb"|F3(Fingerprint)
-  E1("HTTP(S)") -->|"wafw00f"|F3(Fingerprint)
-  E1("HTTP(S)") -->|"wappalyzer"|F3(Fingerprint)
-  E1("HTTP(S)") -->|"sslscan"|F4(Crypto Enable Info)
-  E2(SMB) -->|"enum4linux"|F5(Samba Info)
-  E2(SMB) -->|"smbclient"|F5(Samba Info)
-  E2(SMB) -->|"smbmap"|F5(Samba Info)
-  E3(SNMP) -->|"snmpwalk"|F6(SNMP Info)
-  E3(SNMP) -->|"onesixtyone"|F6(SNMP Info)
+  E1("HTTP(S)") -->|"whatweb"|F1(Fingerprint)
+  E1("HTTP(S)") -->|"wafw00f"|F1(Fingerprint)
+  E1("HTTP(S)") -->|"wappalyzer"|F1(Fingerprint)
+  E2(SMB) -->|"enum4linux"|F2(Samba Info)
+  E2(SMB) -->|"smbclient"|F2(Samba Info)
+  E2(SMB) -->|"smbmap"|F2(Samba Info)
+  E3(SNMP) -->|"snmpwalk"|F3(SNMP Info)
+  E3(SNMP) -->|"onesixtyone"|F3(SNMP Info)
+  F1(Fingerprint) -->|"dirsearch"|G1(Subdirectory)
+  F1(Fingerprint) -->|"feroxbuster"|G1(Subdirectory)
+  F1(Fingerprint) -->|"gobuster"|G1(Subdirectory)
+  F1(Fingerprint) -->|"nikto"|G2(Vuln Info)
+  F1(Fingerprint) -->|"nuclei"|G2(Vuln Info)
+  F1(Fingerprint) -->|"wapiti"|G2(Vuln Info)
+  F1(Fingerprint) -->|"webpwn3r"|G2(Vuln Info)
+  F1(Fingerprint) -->|"sslscan"|G3(Crypto Enable Info)
+  G1(Subdirectory) -->|"arjun"|H1(Parameters Info)
+  H1(Parameters Info) -->|"sqlmap"|I1(Vuln Info)
+  H1(Parameters Info) -->|"xsstrike"|I1(Vuln Info)
+  H1(Parameters Info) -->|"ortester"|I1(Vuln Info)
 ```
 
 ```mermaid
@@ -71,51 +77,6 @@ graph TD
   style Test2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   Test1(Done)
   Test2(Building)
-```
-
-## Single Component Description
-
-```mermaid
-graph LR
-
-  style A stroke-width:4px
-  style B stroke-width:4px
-  style C stroke-width:4px
-  style D stroke-width:4px
-  style E stroke-width:4px
-  style F stroke-width:4px
-  A("
-  Json File
-  <br>
-  {\x22domain\x22:\x22aaa.com\x22}
-  <br>
-  ex. domain.json
-  ") -->B("
-  Shell Script
-  <br>
-  Run container by domain.json
-  <br>
-  ex. front_whois.sh
-  ")-->|Commands<br>Args|C("
-  Container
-  <br>
-  Output result
-  <br>
-  ex. whois
-  ")-->|Raw Data|D("
-  Shell Script
-  <br>
-  Convert the result to json format
-  <br>
-  ex. back_whois.sh
-  ")-->E("
-  Json File
-  <br>
-  {\x22whois\x22:{\x22results\x22:\x22...\x22}}
-  <br>
-  ex. whois.json
-  ")
-  D-->F("Raw Data<br>ex. whois.txt")
 ```
 
 If the treasure is trash actually: 
@@ -229,21 +190,9 @@ docker compose -f ./docker-compose.service_info.yml up
 - [caffix/amass - Docker Image | Docker Hub](https://hub.docker.com/r/caffix/amass)
 - [projectdiscovery/subfinder - Docker Image | Docker Hub](https://hub.docker.com/r/projectdiscovery/subfinder)
 
-## Donate☕
-
-<a href="https://www.buymeacoffee.com/astroicers" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-<!--
-
 ### Kubernetes
 
 <img src="https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/2110px-Kubernetes-icon-color.svg.png" width="100" height="100">
-
-#### Kops
-- https://github.com/kubernetes/kops
-
-#### Minikube
-- https://github.com/kubernetes/minikube
 
 #### Argo
 
@@ -251,9 +200,7 @@ docker compose -f ./docker-compose.service_info.yml up
 
 - https://github.com/argoproj/argo-workflows
 
--->
-
-<!-- ## Others
+## Others
 
 - python
   - [打造最小 Python Docker 容器 - 小惡魔 - AppleBOY](https://blog.wu-boy.com/2021/07/building-minimal-docker-containers-for-python-applications/)
@@ -262,6 +209,8 @@ docker compose -f ./docker-compose.service_info.yml up
 
 ### Nmap
 
+<img src="https://nmap.org/images/sitelogo.png" height="100">
+
 #### State
 
 - Open: Firewall and host ports are opened.
@@ -269,22 +218,8 @@ docker compose -f ./docker-compose.service_info.yml up
 - Filtered: Firewall ports are filtered.
 - Not shown: * closed ports: There isn't have any services.
 
-### Kubernetes
-
-<img src="https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/2110px-Kubernetes-icon-color.svg.png" width="100" height="100">
-
-#### Kops
-- https://github.com/kubernetes/kops
-
-#### Minikube
-- https://github.com/kubernetes/minikube
-
-#### Argo
-
-<img src="https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png" width="100" height="100">
-
-- https://github.com/argoproj/argo-workflows
-
+<!--
 ## Donate☕
 
 <a href="https://www.buymeacoffee.com/astroicers" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+-->
