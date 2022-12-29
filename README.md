@@ -29,6 +29,7 @@ graph LR
   style G2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style G3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style H1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style H2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style I1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   A(Domain) -->|"whois✅"|B1(Whois Info)
   A(Domain) -->|"amass✅"|B2(Subdomain)
@@ -65,6 +66,7 @@ graph LR
   F1(Fingerprint) -->|"webpwn3r"|G2(Vuln Info)
   F1(Fingerprint) -->|"sslscan"|G3(Crypto Enable Info)
   G1(Subdirectory) -->|"arjun"|H1(Parameters Info)
+  G1(Subdirectory) -->|"fuzzhttpbypass"|H2("Http(s) Bypass Info")
   H1(Parameters Info) -->|"sqlmap"|I1(Vuln Info)
   H1(Parameters Info) -->|"xsstrike"|I1(Vuln Info)
   H1(Parameters Info) -->|"ortester"|I1(Vuln Info)
@@ -166,6 +168,7 @@ docker compose -f ./docker-compose.service_info.yml up
 - [ ] sqlmap
 - [ ] ortester
 - [ ] xsstrike
+- [ ] fuzzhttpbypass
 
 ## References
 
