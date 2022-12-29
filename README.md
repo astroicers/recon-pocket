@@ -68,6 +68,7 @@ graph LR
   H1(Parameters Info) -->|"sqlmap"|I1(Vuln Info)
   H1(Parameters Info) -->|"xsstrike"|I1(Vuln Info)
   H1(Parameters Info) -->|"ortester"|I1(Vuln Info)
+  H1(Parameters Info) -->|"liffy"|I1(Vuln Info)
 ```
 
 ```mermaid
@@ -161,6 +162,10 @@ docker compose -f ./docker-compose.service_info.yml up
 - [ ] sslscan
 - [ ] whatweb
 - [ ] wappalyzer
+- [ ] liffy
+- [ ] sqlmap
+- [ ] ortester
+- [ ] xsstrike
 
 ## References
 
