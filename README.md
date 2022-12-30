@@ -198,11 +198,13 @@ docker compose -f ./docker-compose.service_info.yml up
 - [caffix/amass - Docker Image | Docker Hub](https://hub.docker.com/r/caffix/amass)
 - [projectdiscovery/subfinder - Docker Image | Docker Hub](https://hub.docker.com/r/projectdiscovery/subfinder)
 
-### Kubernetes
+### K3s
 
-<img src="https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/2110px-Kubernetes-icon-color.svg.png" width="100" height="100">
+<img src="https://k3s.io/img/k3s-logo-light.svg" width="100" height="100">
 
-#### Argo
+- https://k3s.io/
+
+### Argo
 
 <img src="https://cncf-branding.netlify.app/img/projects/argo/icon/color/argo-icon-color.png" width="100" height="100">
 
