@@ -1,0 +1,172 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: recon-pocket-v1-
+spec:
+  entrypoint: recon-pocket
+  arguments:
+    parameters:
+      - name: target
+        value: ["Whois-Info", "Subdomain"]
+      - name: domain
+        value: "blueteam.pw"
+  templates:
+    # Main Flow
+    - name: recon-pocket
+      dag:
+        target: "{{workflow.parameters.target}}"
+
+        tasks:
+          - name: Whois-Info
+            template: whois-section
+            arguments:
+              parameters:
+                - name: domain
+                  value: "{{workflow.parameters.domain}}"
+          - name: Subdomain
+            template: subdomain-section
+            arguments:
+              parameters:
+                - name: domain
+                  value: "{{workflow.parameters.domain}}"
+          - name: Live-Subdomain
+            depends: Subdomain
+            template: ping-container
+            arguments:
+              parameters:
+                - name: subdomain
+                  value: "{{workflow.parameters.domain}}"
+    # Section Flow
+    - name: whois-section
+      inputs:
+        parameters:
+          - name: domain
+      steps:
+        - - name: whois
+            template: whois-container
+            arguments:
+              parameters:
+                - name: domain
+                  value: "{{inputs.parameters.domain}}"
+        - - name: print
+            template: print-script
+            arguments:
+              parameters:
+                - name: message
+                  value: "{{steps.whois.outputs.parameters.whois-output}}"
+    - name: subdomain-section
+      inputs:
+        parameters:
+          - name: domain
+      steps:
+        - - name: subfinder
+            template: subfinder-container
+            arguments:
+              parameters:
+                - name: domain
+                  value: "{{inputs.parameters.domain}}"
+          - name: assetfinder
+            template: assetfinder-container
+            arguments:
+              parameters:
+                - name: domain
+                  value: "{{inputs.parameters.domain}}"
+        - - name: subdomain
+            template: subdomain-script
+            arguments:
+              parameters:
+                - name: subfinder-subdomain
+                  value: "{{steps.subfinder.outputs.parameters.subfinder-output}}"
+                - name: assetfinder-subdomain
+                  value: "{{steps.assetfinder.outputs.parameters.assetfinder-output}}"
+    # Container List
+    - name: whois-container
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: domain
+      container:
+        image: astroicers/whois:latest
+        command: ["/bin/sh","-c"]
+        args: ["whois {{inputs.parameters.domain}} > /tmp/whois.txt"]
+      outputs:
+        parameters:
+        - name: whois-output
+          valueFrom:
+            path: /tmp/whois.txt
+    - name: subfinder-container
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: domain
+      container:
+        image: astroicers/subfinder:latest
+        command: ["/bin/sh","-c"]
+        args: ["subfinder -silent -d {{inputs.parameters.domain}} > /tmp/subfinder.txt"]
+      outputs:
+        parameters:
+        - name: subfinder-output
+          valueFrom:
+            path: /tmp/subfinder.txt
+    - name: assetfinder-container
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: domain
+      container:
+        image: astroicers/assetfinder:latest
+        command: ["/bin/sh","-c"]
+        args: ["assetfinder -subs-only {{inputs.parameters.domain}} > /tmp/assetfinder.txt"]
+      outputs:
+        parameters:
+        - name: assetfinder-output
+          valueFrom:
+            path: /tmp/assetfinder.txt
+    - name: ping-container
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: subdomain
+      container:
+        image: astroicers/ping:latest
+        command: ["/bin/sh","-c"]
+        args: ["ping -c 1 -W 1 {{inputs.parameters.subdomain}} > /tmp/ping.txt"]
+      outputs:
+        parameters:
+          - name: ping-output
+            valueFrom:
+              path: /tmp/ping.txt
+    # Script List
+    - name: print-script
+      inputs:
+        parameters:
+          - name: message
+      script:
+        image: python:3.9-alpine
+        command: ["python"]
+        source: |
+          print("""{{inputs.parameters.message}}""")
+    - name: subdomain-script
+      inputs:
+        parameters:
+          - name: subfinder-subdomain
+          - name: assetfinder-subdomain
+      script:
+        image: python:3.9-alpine
+        command: ["python"]
+        source: |
+          subfinder = """{{inputs.parameters.subfinder-subdomain}}"""
+          assetfinder = """{{inputs.parameters.assetfinder-subdomain}}"""
+          result = subfinder.split("\n")
+          result += assetfinder.split("\n")
+          result = list(set(result))
+          print(result)
+        stdout: subdomain-output
