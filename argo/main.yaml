@@ -15,7 +15,6 @@ spec:
     - name: recon-pocket
       dag:
         target: "{{workflow.parameters.target}}"
-
         tasks:
           - name: Whois-Info
             template: whois-info-section
@@ -84,7 +83,6 @@ spec:
                   value: "{{steps.subfinder.outputs.parameters.subfinder-output}}"
                 - name: assetfinder-subdomain
                   value: "{{steps.assetfinder.outputs.parameters.assetfinder-output}}"
-        
     # Container List
     - name: whois-container
       retryStrategy:
