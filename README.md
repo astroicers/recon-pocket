@@ -14,10 +14,10 @@ graph LR
   style B2 stroke:red,stroke-width:4px
   style C1 stroke:red,stroke-width:4px
   style C2 stroke:red,stroke-width:4px
-  style C3 stroke:red,stroke-width:4px
-  style C4 stroke:red,stroke-width:4px
-  style D1 stroke:red,stroke-width:4px
-  style D2 stroke:red,stroke-width:4px
+  style C3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style D3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
@@ -32,19 +32,19 @@ graph LR
   style H2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style I1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   A(Domain) -->|"whois✅"|B1(Whois Info)
-  A(Domain) -->|"amass✅"|B2(Subdomain)
+  A(Domain) -->|"amass"|B2(Subdomain)
   A(Domain) -->|"subfinder✅"|B2(Subdomain)
   A(Domain) -->|"assetfinder✅"|B2(Subdomain)
-  A(Domain) -->|"sublist3r✅"|B2(Subdomain)
-  A(Domain) -->|"crt.sh✅"|B2(Subdomain)
-  B2(Subdomain) -->|"altdns✅"|B2(Subdomain)
-  B2(Subdomain) -->|"ping✅"|C1(Live Subdomain) & C2(Dead Subdomain)
-  C1(Live Subdomain) -->|"git-hound✅"|C3(Secret on Github)
-  C1(Live Subdomain) -->|"gau✅"|C4(History on Internet)
-  C1(Live Subdomain) -->|"waybackurls✅"|C4(History on Internet)
-  C1(Live Subdomain) -->|"dnsrecon✅"|D1(Subdomain Info)
-  C1(Live Subdomain) -->|"dig✅"|D1(Subdomain Info)
-  C1(Live Subdomain) -->|"nmap✅"|D2(Service Info)
+  A(Domain) -->|"sublist3r"|B2(Subdomain)
+  A(Domain) -->|"crt.sh"|B2(Subdomain)
+  B2(Subdomain) -->|"altdns"|B2(Subdomain)
+  B2(Subdomain) -->|"python✅"|C1(Live Subdomain) & C2(Dead Subdomain)
+  C1(Live Subdomain) -->|"git-hound"|C3(Secret on Github)
+  C1(Live Subdomain) -->|"gau"|C4(History on Internet)
+  C1(Live Subdomain) -->|"waybackurls"|C4(History on Internet)
+  C1(Live Subdomain) -->|"dnsrecon"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"dig"|D1(Subdomain Info)
+  C1(Live Subdomain) -->|"nmap"|D2(Service Info)
   C1(Live Subdomain) -->|"google hacking"|D3(Leak on Google)
   D2(Service Info) --> E1("HTTP(S)")
   D2(Service Info) --> E2(SMB)
@@ -75,70 +75,54 @@ graph LR
 
 ```mermaid
 graph TD
-
   style Test1 stroke:red,stroke-width:4px
   style Test2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   Test1(Done)
   Test2(Building)
 ```
 
-If the treasure is trash actually: 
+## Install
 
-```shell
-$ ./rm-treasures.sh
-```
-
-### Web Tool
+### Install K3S
 
 ```bash
-export target="target.com"
-docker-compose -f ./docker-compose/docker-compose.viewer.yml up --build
+curl -sfL https://get.k3s.io | sh - 
 ```
 
-### Terminal Second
+### Install Argo Workflows
 
 ```bash
-sudo su
-cd ~/recon-pocket
-export target="target.com"
-
-docker compose -f ./docker-compose.whois.yml up
-
-docker compose -f ./docker-compose.find_subdomain.yml up
-
-chmod +x ./subdomain.sh && ./subdomain.sh
-cp ./treasure/subdomain.txt ./altdns/
-docker compose -f ./docker-compose.mutate.yml up
-
-./subdomain.sh
-chmod +x ./subdomain_live.sh && ./subdomain_live.sh
-cp ./treasure/subdomain_live.txt ./dnsrecon/
-cp ./treasure/subdomain_live.txt ./dig/
-docker compose -f ./docker-compose.dns_info.yml up
-
-cp ./treasure/subdomain_live.txt ./gau/
-cp ./treasure/subdomain_live.txt ./waybackurls/
-docker compose -f ./docker-compose.internet_history.yml up
-
-cp ./treasure/subdomain_live.txt ./git-hound/
-docker compose -f ./docker-compose.github_secret.yml up
-
-cp ./treasure/subdomain_live.txt ./nmap/
-docker compose -f ./docker-compose.service_info.yml up
+sudo kubectl create namespace argo
+sudo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v3.4.4/install.yaml
+sudo kubectl patch deployment \
+  argo-server \
+  --namespace argo \
+  --type='json' \
+  -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/args", "value": [
+  "server",
+  "--auth-mode=server"
+]}]'
+sudo kubectl -n argo port-forward deployment/argo-server 2746:2746
 ```
+This will serve the UI on https://localhost:2746.
+
+## Run
+
+- Copy `recon-pocket/argo/main.yaml` and Paste to https://localhost:2746/workflows/argo?limit=500&sidePanel=submit-new-workflow
+- Change the target domain name
 
 ## Tools
 
-- [X] amass
+- [ ] amass
 - [X] subfinder
 - [X] assetfinder
-- [X] altdns
-- [X] sublist3r
-- [X] dnsrecon
-- [X] git-hound
-- [X] gau
-- [X] waybackurls
-- [X] nmap
+- [ ] altdns
+- [ ] sublist3r
+- [ ] dnsrecon
+- [ ] git-hound
+- [ ] gau
+- [ ] waybackurls
+- [ ] nmap
 - [ ] wapiti
 - [ ] arjun
 - [ ] goohak

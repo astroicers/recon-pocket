@@ -132,22 +132,6 @@ spec:
         - name: assetfinder-output
           valueFrom:
             path: /tmp/assetfinder.txt
-    - name: ping-container
-      retryStrategy:
-        limit: "2"
-        retryPolicy: "Always"
-      inputs:
-        parameters:
-          - name: subdomain
-      container:
-        image: astroicers/ping:latest
-        command: ["/bin/sh","-c"]
-        args: ["ping -c 1 -W 1 {{inputs.parameters.subdomain}} > /tmp/ping.txt"]
-      outputs:
-        parameters:
-          - name: ping-output
-            valueFrom:
-              path: /tmp/ping.txt
     # Script List
     - name: print-script
       inputs:
