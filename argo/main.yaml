@@ -18,7 +18,7 @@ spec:
 
         tasks:
           - name: Whois-Info
-            template: whois-section
+            template: whois-info-section
             arguments:
               parameters:
                 - name: domain
@@ -31,13 +31,13 @@ spec:
                   value: "{{workflow.parameters.domain}}"
           - name: Live-Subdomain
             depends: Subdomain
-            template: ping-container
+            template: live-subdomain-script
             arguments:
               parameters:
                 - name: subdomain
-                  value: "{{workflow.parameters.domain}}"
+                  value: "{{tasks.Subdomain.outputs.parameters.subdomain}}"
     # Section Flow
-    - name: whois-section
+    - name: whois-info-section
       inputs:
         parameters:
           - name: domain
@@ -58,6 +58,11 @@ spec:
       inputs:
         parameters:
           - name: domain
+      outputs:
+        parameters:
+          - name: subdomain
+            valueFrom: 
+              parameter: "{{steps.subdomain.outputs.parameters.subdomain-script-output}}"
       steps:
         - - name: subfinder
             template: subfinder-container
@@ -79,6 +84,7 @@ spec:
                   value: "{{steps.subfinder.outputs.parameters.subfinder-output}}"
                 - name: assetfinder-subdomain
                   value: "{{steps.assetfinder.outputs.parameters.assetfinder-output}}"
+        
     # Container List
     - name: whois-container
       retryStrategy:
@@ -169,4 +175,49 @@ spec:
           result += assetfinder.split("\n")
           result = list(set(result))
           print(result)
-        stdout: subdomain-output
+          with open("/tmp/subdomain.txt", "w") as f:
+            for i in result:
+              f.write(i + "\n")
+      outputs:
+        parameters:
+          - name: subdomain-script-output
+            valueFrom:
+              path: /tmp/subdomain.txt
+    - name: live-subdomain-script
+      inputs:
+        parameters:
+          - name: subdomain
+      script:
+        image: python:3.9-alpine
+        command: ["python"]
+        source: |
+          import socket
+          subdomain = """{{inputs.parameters.subdomain}}"""
+          subdomain_list = subdomain.split("\n")
+          def is_alive(hostname):
+            try:
+              socket.getaddrinfo(hostname, None)
+              return True
+            except socket.gaierror:
+              return False
+          alive_list = []
+          not_alive_list = []
+          for subdomain in subdomain_list:
+            if is_alive(subdomain):
+              alive_list.append(subdomain)
+              print("%s is alive." % subdomain)
+            else:
+              not_alive_list.append(subdomain)
+              print("%s is not alive." % subdomain)
+          with open("/tmp/subdomain_alive.txt", "w") as f:
+            f.write(str(alive_list))
+          with open("/tmp/subdomain_not_alive.txt", "w") as f:
+            f.write(str(not_alive_list))
+      outputs:
+        parameters:
+          - name: live-subdomain-alive-script-output
+            valueFrom:
+              path: /tmp/subdomain_alive.txt
+          - name: live-subdomain-not-alive-script-output
+            valueFrom:
+              path: /tmp/subdomain_not_alive.txt
