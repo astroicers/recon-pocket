@@ -8,7 +8,6 @@ This is an integrated and automated tool for Recon.
 
 ```mermaid
 graph LR
-
   style A  stroke:red,stroke-width:4px
   style B1 stroke:red,stroke-width:4px
   style B2 stroke:red,stroke-width:4px
@@ -44,7 +43,7 @@ graph LR
   C1(Live Subdomain) -->|"waybackurls"|C4(History on Internet)
   C1(Live Subdomain) -->|"dnsrecon"|D1(Subdomain Info)
   C1(Live Subdomain) -->|"dig"|D1(Subdomain Info)
-  C1(Live Subdomain) -->|"nmap"|D2(Service Info)
+  C1(Live Subdomain) -->|"nmap✅"|D2(Service Info)
   C1(Live Subdomain) -->|"google hacking"|D3(Leak on Google)
   D2(Service Info) --> E1("HTTP(S)")
   D2(Service Info) --> E2(SMB)
@@ -122,7 +121,7 @@ This will serve the UI on https://localhost:2746.
 - [ ] git-hound
 - [ ] gau
 - [ ] waybackurls
-- [ ] nmap
+- [X] nmap
 - [ ] wapiti
 - [ ] arjun
 - [ ] goohak

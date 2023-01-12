@@ -35,6 +35,13 @@ spec:
               parameters:
                 - name: subdomain
                   value: "{{tasks.Subdomain.outputs.parameters.subdomain}}"
+          - name: Service-Info
+            depends: Live-Subdomain
+            template: service-info-section
+            arguments:
+              parameters:
+                - name: live-subdomain
+                  value: "{{tasks.Live-Subdomain.outputs.parameters.live-subdomain-alive-script-output}}"
     # Section Flow
     - name: whois-info-section
       inputs:
@@ -47,12 +54,6 @@ spec:
               parameters:
                 - name: domain
                   value: "{{inputs.parameters.domain}}"
-        - - name: print
-            template: print-script
-            arguments:
-              parameters:
-                - name: message
-                  value: "{{steps.whois.outputs.parameters.whois-output}}"
     - name: subdomain-section
       inputs:
         parameters:
@@ -83,6 +84,23 @@ spec:
                   value: "{{steps.subfinder.outputs.parameters.subfinder-output}}"
                 - name: assetfinder-subdomain
                   value: "{{steps.assetfinder.outputs.parameters.assetfinder-output}}"
+    - name: service-info-section
+      inputs:
+        parameters:
+          - name: live-subdomain
+      outputs:
+        parameters:
+          - name: service-info
+            valueFrom:
+              parameter: "{{steps.nmap.outputs.parameters.nmap-output}}"
+      steps:
+        - - name: nmap
+            template: nmap-container
+            arguments:
+              parameters:
+                - name: live-subdomain
+                  value: "{{item}}"
+            withParam: "{{inputs.parameters.live-subdomain}}" 
     # Container List
     - name: whois-container
       retryStrategy:
@@ -132,6 +150,22 @@ spec:
         - name: assetfinder-output
           valueFrom:
             path: /tmp/assetfinder.txt
+    - name: nmap-container
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: live-subdomain
+      container:
+        image: astroicers/nmap:latest
+        command: ["/bin/sh","-c"]
+        args: ["nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -oN /tmp/nmap.txt -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}}"]
+      outputs:
+        parameters:
+        - name: nmap-output
+          valueFrom:
+            path: /tmp/nmap.xml
     # Script List
     - name: print-script
       inputs:
@@ -174,6 +208,7 @@ spec:
         command: ["python"]
         source: |
           import socket
+          import json
           subdomain = """{{inputs.parameters.subdomain}}"""
           subdomain_list = subdomain.split("\n")
           def is_alive(hostname):
@@ -191,10 +226,12 @@ spec:
             else:
               not_alive_list.append(subdomain)
               print("%s is not alive." % subdomain)
+          alive_json = json.dumps(alive_list)
+          not_alive_json = json.dumps(not_alive_list)
           with open("/tmp/subdomain_alive.txt", "w") as f:
-            f.write(str(alive_list))
+            f.write(alive_json)
           with open("/tmp/subdomain_not_alive.txt", "w") as f:
-            f.write(str(not_alive_list))
+            f.write(not_alive_json)
       outputs:
         parameters:
           - name: live-subdomain-alive-script-output
