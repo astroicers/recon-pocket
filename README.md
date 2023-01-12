@@ -16,7 +16,7 @@ graph LR
   style C3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style C4 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style D1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
-  style D2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
+  style D2 stroke:red,stroke-width:4px
   style D3 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E1 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
   style E2 stroke:red,stroke-width:4px,stroke-dasharray: 5 5
