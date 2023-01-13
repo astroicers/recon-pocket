@@ -7,7 +7,8 @@ spec:
   arguments:
     parameters:
       - name: target
-        value: ["Whois-Info", "Subdomain"]
+        value: ["Service-Info"] # test
+        # value: ["Whois-Info", "Subdomain"]
       - name: domain
         value: "blueteam.pw"
   templates:
@@ -16,33 +17,34 @@ spec:
       dag:
         target: "{{workflow.parameters.target}}"
         tasks:
-          - name: Whois-Info
-            template: whois-info-section
-            arguments:
-              parameters:
-                - name: domain
-                  value: "{{workflow.parameters.domain}}"
-          - name: Subdomain
-            template: subdomain-section
-            arguments:
-              parameters:
-                - name: domain
-                  value: "{{workflow.parameters.domain}}"
-          - name: Live-Subdomain
-            depends: Subdomain
-            template: live-subdomain-script
-            arguments:
-              parameters:
-                - name: subdomain
-                  value: "{{tasks.Subdomain.outputs.parameters.subdomain}}"
+          # - name: Whois-Info
+          #   template: whois-info-section
+          #   arguments:
+          #     parameters:
+          #       - name: domain
+          #         value: "{{workflow.parameters.domain}}"
+          # - name: Subdomain
+          #   template: subdomain-section
+          #   arguments:
+          #     parameters:
+          #       - name: domain
+          #         value: "{{workflow.parameters.domain}}"
+          # - name: Live-Subdomain
+          #   depends: Subdomain
+          #   template: live-subdomain-script
+          #   arguments:
+          #     parameters:
+          #       - name: subdomain
+          #         value: "{{tasks.Subdomain.outputs.parameters.subdomain}}"
           - name: Service-Info
-            depends: Live-Subdomain
+            # depends: Live-Subdomain
             template: service-info-section
             arguments:
               parameters:
                 - name: live-subdomain
                   value: "{{item}}"
-            withParam: "{{tasks.Live-Subdomain.outputs.parameters.live-subdomain-alive-script-output}}"
+            # withParam: "{{tasks.Live-Subdomain.outputs.parameters.live-subdomain-alive-script-output}}"
+            withParam: "[\"hackcat105.blueteam.pw\",\"blueteam.pw\"]" # test
     # Section Flow
     - name: whois-info-section
       inputs:
@@ -164,7 +166,8 @@ spec:
       container:
         image: astroicers/nmap:latest
         command: ["/bin/sh","-c"]
-        args: ["nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -oN /tmp/nmap.txt -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}} && python xml2json.py"]
+        # args: ["nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -oN /tmp/nmap.txt -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}} && python xml2json.py"]
+        args: ["nmap -p80,443,8080,3389 -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}} && python xml2json.py"] # test
       outputs:
         parameters:
         - name: nmap-output
