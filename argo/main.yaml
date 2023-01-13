@@ -41,7 +41,8 @@ spec:
             arguments:
               parameters:
                 - name: live-subdomain
-                  value: "{{tasks.Live-Subdomain.outputs.parameters.live-subdomain-alive-script-output}}"
+                  value: "{{item}}"
+            withParam: "{{tasks.Live-Subdomain.outputs.parameters.live-subdomain-alive-script-output}}"
     # Section Flow
     - name: whois-info-section
       inputs:
@@ -62,7 +63,7 @@ spec:
         parameters:
           - name: subdomain
             valueFrom: 
-              parameter: "{{steps.subdomain.outputs.parameters.subdomain-script-output}}"
+              parameter: "{{steps.subdomain-merge.outputs.parameters.subdomain-script-output}}"
       steps:
         - - name: subfinder
             template: subfinder-container
@@ -76,7 +77,7 @@ spec:
               parameters:
                 - name: domain
                   value: "{{inputs.parameters.domain}}"
-        - - name: subdomain
+        - - name: subdomain-merge
             template: subdomain-script
             arguments:
               parameters:
@@ -88,19 +89,26 @@ spec:
       inputs:
         parameters:
           - name: live-subdomain
-      outputs:
-        parameters:
-          - name: service-info
-            valueFrom:
-              parameter: "{{steps.nmap.outputs.parameters.nmap-output}}"
-      steps:
-        - - name: nmap
+      # outputs:
+      #   parameters:
+      #     - name: service-info
+      #       valueFrom:
+      #         parameter: "{{tasks.xml-to-json.outputs.parameters.xml-to-json-script-output}}"
+      dag:
+        tasks:
+          - name: nmap
             template: nmap-container
             arguments:
               parameters:
                 - name: live-subdomain
-                  value: "{{item}}"
-            withParam: "{{inputs.parameters.live-subdomain}}" 
+                  value: "{{inputs.parameters.live-subdomain}}"
+          # - name: xml-to-json
+          #   depends: nmap
+          #   template: xml-to-json-script
+          #   arguments:
+          #     parameters:
+          #       - name: xml
+          #         value: "{{tasks.nmap.outputs.parameters.nmap-output}}"
     # Container List
     - name: whois-container
       retryStrategy:
@@ -160,12 +168,12 @@ spec:
       container:
         image: astroicers/nmap:latest
         command: ["/bin/sh","-c"]
-        args: ["nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -oN /tmp/nmap.txt -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}}"]
+        args: ["nmap -vv --reason -Pn -T4 -sV -sC --version-all -A --osscan-guess -oN /tmp/nmap.txt -oX /tmp/nmap.xml {{inputs.parameters.live-subdomain}} && python xml2json.py"]
       outputs:
         parameters:
         - name: nmap-output
           valueFrom:
-            path: /tmp/nmap.xml
+            path: /tmp/nmap.json
     # Script List
     - name: print-script
       inputs:
@@ -240,3 +248,29 @@ spec:
           - name: live-subdomain-not-alive-script-output
             valueFrom:
               path: /tmp/subdomain_not_alive.txt
+    # - name: xml-to-json-script
+    #   inputs:
+    #     parameters:
+    #       - name: xml
+    #   script:
+    #     image: python:3.9-alpine
+    #     command: ["python"]
+    #     source: |
+    #       import json
+    #       import xmltodict
+    #       def xml2json(xml):
+    #           xml_file = open(xml)
+    #           xml_content = xml_file.read()
+    #           xml_file.close()
+    #           xmljson = json.dumps(xmltodict.parse(xml_content), indent=4, sort_keys=True)
+    #           json_data = json.loads(xmljson)
+    #           return json_data
+    #       to_json = xml2json("""{{inputs.parameters.xml}}""")
+    #       print(to_json)
+    #       with open("/tmp/nmap.json", "w") as f:
+    #         f.write(to_json)
+    #   outputs:
+    #     parameters:
+    #       - name: xml-to-json-script-output
+    #         valueFrom:
+    #           path: /tmp/nmap.json
