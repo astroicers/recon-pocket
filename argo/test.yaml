@@ -106,7 +106,14 @@ spec:
                   value: "80"
                 - name: nmap-json
                   value: "{{steps.nmap.outputs.parameters.nmap-output}}"
-          
+          - name: https-port
+            template: https-port-script
+            arguments:
+              parameters:
+                - name: port
+                  value: "443"
+                - name: nmap-json
+                  value: "{{steps.nmap.outputs.parameters.nmap-output}}"
     # Container List
     - name: whois-container
       retryStrategy:
@@ -275,5 +282,35 @@ spec:
       outputs:
         parameters:
           - name: http-port-script-output
+            valueFrom:
+              path: /tmp/ports.txt
+    - name: https-port-script
+      inputs:
+        parameters:
+          - name: nmap-json
+      script:
+        image: python:3.9-alpine
+        command: ["python"]
+        source: |
+          import json
+          data = json.loads("""{{inputs.parameters.nmap-json}}""")
+          print(data)
+          ports = []
+          num = len(data["nmaprun"]["host"]["ports"]["port"])
+          try:
+            for i in range(num):
+              if "service" in data["nmaprun"]["host"]["ports"]["port"][i]:
+                if data["nmaprun"]["host"]["ports"]["port"][i]["service"]["@name"] == "https":
+                  ports.append(data["nmaprun"]["host"]["ports"]["port"][i]["@portid"])
+          except:
+            if len(ports) != 0:
+              exit(2)
+            if data["nmaprun"]["host"]["ports"]["port"]["service"]["@name"] == "https":
+              ports.append(data["nmaprun"]["host"]["ports"]["port"]["@portid"])
+          with open("/tmp/ports.txt", "w") as f:
+            f.write(str(ports))
+      outputs:
+        parameters:
+          - name: https-port-script-output
             valueFrom:
               path: /tmp/ports.txt
