@@ -102,16 +102,16 @@ spec:
             template: http-port-script
             arguments:
               parameters:
-                - name: port
-                  value: "80"
+                - name: live-subdomain
+                  value: "{{inputs.parameters.live-subdomain}}"
                 - name: nmap-json
                   value: "{{steps.nmap.outputs.parameters.nmap-output}}"
           - name: https-port
             template: https-port-script
             arguments:
               parameters:
-                - name: port
-                  value: "443"
+                - name: live-subdomain
+                  value: "{{inputs.parameters.live-subdomain}}"
                 - name: nmap-json
                   value: "{{steps.nmap.outputs.parameters.nmap-output}}"
     # Container List
@@ -180,6 +180,22 @@ spec:
         - name: nmap-output
           valueFrom:
             path: /tmp/nmap.json
+    - name: wappalyzer
+      retryStrategy:
+        limit: "2"
+        retryPolicy: "Always"
+      inputs:
+        parameters:
+          - name: url
+      container:
+        image: astroicers/wappalyzer:latest
+        command: ["/bin/sh", "-c"]
+        args: ["wappalyzer {{inputs.parameters.url}} > /tmp/wappalyzer.json"]
+      outputs:
+        parameters:
+        - name: wappalyzer-output
+          valueFrom:
+            path: /tmp/wappalyzer.json
     # Script List
     - name: print-script
       inputs:
@@ -257,6 +273,7 @@ spec:
     - name: http-port-script
       inputs:
         parameters:
+          - name: live-subdomain
           - name: nmap-json
       script:
         image: python:3.9-alpine
@@ -266,6 +283,7 @@ spec:
           data = json.loads("""{{inputs.parameters.nmap-json}}""")
           print(data)
           ports = []
+          hostname = """{{inputs.parameters.live-subdomain}}"""
           num = len(data["nmaprun"]["host"]["ports"]["port"])
           try:
             for i in range(num):
@@ -277,8 +295,11 @@ spec:
               exit(2)
             if data["nmaprun"]["host"]["ports"]["port"]["service"]["@name"] == "http":
               ports.append(data["nmaprun"]["host"]["ports"]["port"]["@portid"])
+          result = {}
+          result["hostname"] = hostname
+          result["port"] = ports
           with open("/tmp/ports.txt", "w") as f:
-            f.write(str(ports))
+            f.write(json.dumps(result))
       outputs:
         parameters:
           - name: http-port-script-output
@@ -287,6 +308,7 @@ spec:
     - name: https-port-script
       inputs:
         parameters:
+          - name: live-subdomain
           - name: nmap-json
       script:
         image: python:3.9-alpine
@@ -296,6 +318,7 @@ spec:
           data = json.loads("""{{inputs.parameters.nmap-json}}""")
           print(data)
           ports = []
+          hostname = """{{inputs.parameters.live-subdomain}}"""
           num = len(data["nmaprun"]["host"]["ports"]["port"])
           try:
             for i in range(num):
@@ -307,8 +330,11 @@ spec:
               exit(2)
             if data["nmaprun"]["host"]["ports"]["port"]["service"]["@name"] == "https":
               ports.append(data["nmaprun"]["host"]["ports"]["port"]["@portid"])
+          result = {}
+          result["hostname"] = hostname
+          result["port"] = ports
           with open("/tmp/ports.txt", "w") as f:
-            f.write(str(ports))
+            f.write(json.dumps(result))
       outputs:
         parameters:
           - name: https-port-script-output
