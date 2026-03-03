@@ -1,8 +1,12 @@
 # Recon-Pocket
 
-This is an integrated and automated tool for Recon. 
+> **⚠️ DEPRECATED** — 偵察功能已整合至 [Athena](https://github.com/astroicers/Athena) 的 ReconEngine + OSINTEngine。
+> 本 Repo 的工具清單已遷移為 Athena 的偵察能力擴展路線圖。
+> 本 Repo 僅作為歷史存檔，不再維護。
 
-> Coming and Soon.
+---
+
+This is an integrated and automated tool for Recon.
 
 ## Flow Chart
 
